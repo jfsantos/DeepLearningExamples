@@ -39,17 +39,15 @@ class Denoiser(torch.nn.Module):
         super(Denoiser, self).__init__()
         self.stft = STFT(filter_length=filter_length,
                          hop_length=int(filter_length/n_overlap),
-                         win_length=win_length).cuda()
+                         win_length=win_length)
         if mode == 'zeros':
             mel_input = torch.zeros(
                 (1, 80, 88),
-                dtype=waveglow.upsample.weight.dtype,
-                device=waveglow.upsample.weight.device)
+                dtype=waveglow.upsample.weight.dtype)
         elif mode == 'normal':
             mel_input = torch.randn(
                 (1, 80, 88),
-                dtype=waveglow.upsample.weight.dtype,
-                device=waveglow.upsample.weight.device)
+                dtype=waveglow.upsample.weight.dtype)
         else:
             raise Exception("Mode {} if not supported".format(mode))
 
